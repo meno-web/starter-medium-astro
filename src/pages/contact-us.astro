@@ -1,0 +1,70 @@
+---
+import { style } from 'meno-astro';
+import { BaseLayout } from 'meno-astro/components';
+import Checkbox from '../components/Checkbox.astro';
+import Heading from '../components/Heading.astro';
+import Input from '../components/Input.astro';
+import Layout from '../components/Layout.astro';
+import RadioGroup from '../components/RadioGroup.astro';
+import Section from '../components/Section.astro';
+import Select from '../components/Select.astro';
+import SubmitButton from '../components/SubmitButton.astro';
+import Text from '../components/Text.astro';
+import TextArea from '../components/TextArea.astro';
+import '../styles/theme.css';
+
+const meta = {
+  title: "Contact Us",
+  description: "Get in touch with our team. Send us a message and we will get back to you shortly."
+};
+---
+<BaseLayout meta={meta}>
+  <Layout>
+    <Section>
+      <div class={style({ base: { maxWidth: "640px", margin: "auto" }, tablet: {}, mobile: {} })}>
+        <div class={style({
+            base: {
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-start",
+              alignItems: "center",
+              textAlign: "center",
+              marginBottom: "52px"
+            },
+            tablet: {},
+            mobile: {}
+          })}>
+          <Heading text={`<!--MENO_RAW_HTML-->Get in <span class="custom-span">touch</span>`} class={style({ base: { marginBottom: "var(--h-m)", textAlign: "center" } }, undefined, { instance: true })} __menoStyle={{ base: { marginBottom: "var(--h-m)", textAlign: "center" } }} />
+          <Text text="Have a question or want to work together? Send us a message and we will get back to you shortly." class={style({ base: { textAlign: "center", maxWidth: "500px" } }, undefined, { instance: true })} __menoStyle={{ base: { textAlign: "center", maxWidth: "500px" } }} />
+        </div>
+        <form class={style({
+            base: {
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-start",
+              alignItems: "stretch",
+              gap: "20px"
+            },
+            tablet: {},
+            mobile: {}
+          })} action="/api/send-email" method="post">
+          <Input label="Name" inputId="name" inputName="name" inputType="text" placeholder="John Doe" required={true} />
+          <Input label="Email" inputId="email" inputName="email" inputType="email" placeholder="johndoe@email.com" required={true} />
+          <Input label="Phone" inputId="phone" inputName="phone" inputType="tel" placeholder="0 000 000 000" required={false} />
+          <Select label="Subject" inputId="subject" inputName="subject" required={true} options={[
+              { label: "Select a subject", value: "" },
+              { label: "General inquiry", value: "general" },
+              { label: "Support", value: "support" },
+              { label: "Partnership", value: "partnership" },
+              { label: "Other", value: "other" }
+            ]} />
+          <RadioGroup label="Preferred contact method" inputName="contactMethod" required={true} options={[{ label: "Email", value: "email" }, { label: "Phone", value: "phone" }]} />
+          <TextArea label="Message" inputId="message" inputName="message" placeholder="Message" rows={6} required={true} />
+          <Checkbox label="Subscribe to our newsletter" inputId="newsletter" inputName="newsletter" value="yes" checked={false} required={false} />
+          <Checkbox label="I agree to the privacy policy" inputId="privacy" inputName="privacy" value="yes" checked={false} required={true} />
+          <SubmitButton />
+        </form>
+      </div>
+    </Section>
+  </Layout>
+</BaseLayout>
