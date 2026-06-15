@@ -12,8 +12,13 @@
 //        npx wrangler secret put TO_EMAIL        (or add it as a var in wrangler.jsonc)
 //
 // FROM_EMAIL defaults to Resend's sandbox sender (onboarding@resend.dev), which
-// works immediately with NO domain verification. For production, set FROM_EMAIL
-// to an address on your own Resend-verified domain (var or secret).
+// works immediately with NO domain verification — BUT in that mode Resend only
+// delivers to the email address your Resend account is registered with. So the
+// simplest setup with ZERO domain config: set TO_EMAIL to that same account
+// email. (RESEND_API_KEY + TO_EMAIL is then all you need.)
+//
+// To receive at a DIFFERENT inbox, or send from your own branded address, verify
+// your domain in Resend and set FROM_EMAIL to an address on it (var or secret).
 // ───────────────────────────────────────────────────────────────────────────
 
 const DEFAULT_FROM = 'onboarding@resend.dev';
