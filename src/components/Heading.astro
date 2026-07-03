@@ -1,10 +1,11 @@
 ---
-import { resolveProps, style } from 'meno-astro';
+import { cx, resolveProps, richTextWithComponents } from 'meno-astro';
+import { cmsComponents } from '../cmsComponents';
 
 const __props = resolveProps(Astro, {
   text: {
     type: "rich-text",
-    default: "<!--MENO_RAW_HTML-->Everything you <span class=\"custom-span\" data-meno-span=\"true\">need</span> to build professional website"
+    default: "Everything you <span class=\"custom-span\" data-meno-span=\"true\">need</span> to build professional website"
   },
   tag: { type: "number", default: 1 }
 });
@@ -14,14 +15,4 @@ const __meno = { acceptsStyles: true };
 
 const Tag_0 = `h${tag}`;
 ---
-<Tag_0 class={style({
-    base: {
-      fontSize: "var(--h-fs)",
-      letterSpacing: "var(--h-ls)",
-      fontWeight: "var(--h-fw)",
-      lineHeight: "var(--h-lh)",
-      color: "var(--text)"
-    },
-    tablet: {},
-    mobile: {}
-  }, __props, { root: true })}><Fragment set:html={text} /></Tag_0>
+<Tag_0 class={cx("text-text text-(length:--h-fs) font-(number:--h-fw) leading-(--h-lh) tracking-(--h-ls)", className)}><Fragment set:html={richTextWithComponents(text, cmsComponents)} /></Tag_0>
